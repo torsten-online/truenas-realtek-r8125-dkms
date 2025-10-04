@@ -1,3 +1,79 @@
+# Fork for inoffical (!) TrueNAS Integration of realtek-r8125-dkms
+
+# Howto for TrueNAS
+
+* Disable rootfs protection and activate apt/dpkg for dkms driver package install
+```bash
+/usr/local/libexec/disable-rootfs-protection
+```
+
+* Blacklist of r8169 realtek driver, because its loading wrong
+```bash
+sudo echo "blacklist r8169" > /etc/modprobe.d/blacklist-r8169.conf
+```
+* Download latest debian dkms realtek driver package from github:
+
+Example:
+[https://github.com/awesometic/realtek-r8125-dkms/releases](https://github.com/awesometic/realtek-r8125-dkms/releases)
+
+* Installing dkms driver package + other dependencies (I got network up and running over USB-LAN Adapter)
+
+````bash
+sudo dpkg -i realtek-r8125-dkms_9.016.01-1_amd64.deb
+````
+* If errors happen, maybe fix broken
+
+````bash
+sudo apt install --fix-broken
+````
+
+* Also required - because of the blacklist r8169 driver - initramfs update!
+````bash
+update-initramfs -u
+````
+Thats all - the cheap internal realtek card is finally working, also with 2,5GBIT:
+
+````bash
+root@truenas[~]# ethtool enp6s0
+Settings for enp6s0:
+        Supported ports: [ TP ]
+        Supported link modes:   10baseT/Half 10baseT/Full
+                                100baseT/Half 100baseT/Full
+                                1000baseT/Full
+                                2500baseT/Full
+        Supported pause frame use: Symmetric Receive-only
+        Supports auto-negotiation: Yes
+        Supported FEC modes: Not reported
+        Advertised link modes:  10baseT/Half 10baseT/Full
+                                100baseT/Half 100baseT/Full
+                                1000baseT/Full
+                                2500baseT/Full
+        Advertised pause frame use: Symmetric Receive-only
+        Advertised auto-negotiation: Yes
+        Advertised FEC modes: Not reported
+        Link partner advertised link modes:  10baseT/Half 10baseT/Full
+                                             100baseT/Half 100baseT/Full
+                                             1000baseT/Full
+                                             2500baseT/Full
+        Link partner advertised pause frame use: Symmetric
+        Link partner advertised auto-negotiation: Yes
+        Link partner advertised FEC modes: Not reported
+        Speed: 2500Mb/s
+        Duplex: Full
+        Auto-negotiation: on
+        Port: Twisted Pair
+        PHYAD: 0
+        Transceiver: internal
+        MDI-X: on
+        Supports Wake-on: pumbg
+        Wake-on: d
+        Current message level: 0x00000033 (51)
+                               drv probe ifdown ifup
+        Link detected: yes
+````
+
+Have Fun with TrueNAS!
+
 # Realtek r8125 DKMS
 
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/awesometic/realtek-r8125-dkms?sort=semver&style=for-the-badge)
