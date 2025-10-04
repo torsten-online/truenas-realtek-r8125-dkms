@@ -29,7 +29,7 @@ sudo apt install --fix-broken
 
 * Also required - because of the blacklist r8169 driver - initramfs update!
 ````bash
-update-initramfs -u
+sudo update-initramfs -u
 ````
 Thats all - the cheap internal realtek card is finally working, also with 2,5GBIT:
 
