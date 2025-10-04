@@ -72,6 +72,8 @@ Settings for enp6s0:
         Link detected: yes
 ````
 
+This needs to be done after each TrueNAS Scale Upgrade! I provide soon a prehook script, which should be useful to do manual tasks after upgrades!
+
 Have Fun with TrueNAS!
 
 # Realtek r8125 DKMS
