@@ -4,7 +4,7 @@
 
 * Disable rootfs protection and activate apt/dpkg for dkms driver package install
 ```bash
-/usr/local/libexec/disable-rootfs-protection
+sudo /usr/local/libexec/disable-rootfs-protection
 ```
 
 * Blacklist of r8169 realtek driver, because its loading wrong
