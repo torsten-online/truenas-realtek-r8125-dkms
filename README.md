@@ -16,13 +16,28 @@ sudo echo "blacklist r8169" > /etc/modprobe.d/blacklist-r8169.conf
 Example:
 [https://github.com/awesometic/realtek-r8125-dkms/releases](https://github.com/awesometic/realtek-r8125-dkms/releases)
 
-* Installing dkms driver package + other dependencies (I got network up and running over USB-LAN Adapter)
+* Update Packages List - because TrueNAS Scale Appliance Image doesnt have it:
+````bash
+sudo apt-get update
+````
 
+* Because of maybe "sudo: argv[2] mismatch" - you have to enable diable sudo intercept_verify:
+
+````bash
+sudo visudo
+````
+Add:
+````bash
+Defaults !intercept_verify
+````
+Please remove after driver is build - installed and working!
+
+* Installing dkms driver package + other dependencies (I got network up and running over USB-LAN Adapter)
 ````bash
 sudo dpkg -i realtek-r8125-dkms_9.016.01-1_amd64.deb
 ````
-* If errors happen, maybe fix broken
 
+* If errors happen, maybe fix broken
 ````bash
 sudo apt install --fix-broken
 ````
@@ -31,6 +46,8 @@ sudo apt install --fix-broken
 ````bash
 sudo update-initramfs -u
 ````
+and Just reboot!
+
 Thats all - the cheap internal realtek card is finally working, also with 2,5GBIT:
 
 ````bash
