@@ -30,7 +30,7 @@ Add:
 ````bash
 Defaults !intercept_verify
 ````
-Please remove after driver is build - installed and working!
+Please remove this sudo setting after driver is build - installed and working!
 
 * Installing dkms driver package + other dependencies (I got network up and running over USB-LAN Adapter)
 ````bash
